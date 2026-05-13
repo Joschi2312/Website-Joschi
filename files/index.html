@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josia Meyer — Composer & Music Producer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Editorial+New:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #e8e4df;
+  --fg-dim: rgba(232,228,223,0.35);
+  --fg-faint: rgba(232,228,223,0.08);
+  --blue: #4f8ef7;
+  --blue-dim: rgba(79,142,247,0.1);
+  --mono: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cur { position:fixed; width:8px; height:8px; background:var(--blue); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:screen; transition:width .2s, height .2s; }
+#cur-ring { position:fixed; width:32px; height:32px; border:1px solid rgba(79,142,247,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s, height .2s, opacity .3s; }
+#cur.big { width:20px; height:20px; }
+#cur-ring.big { width:50px; height:50px; opacity:.5; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  display: flex; justify-content:space-between; align-items:center;
+  padding: 2rem 3rem;
+  mix-blend-mode: normal;
+}
+.logo { display:flex; align-items:center; }
+.logo img { height:44px; width:auto; filter:brightness(10) saturate(0); opacity:.9; }
+.logo img:hover { opacity:1; }
+.nav-r { display:flex; align-items:center; gap:2.5rem; }
+.nav-r a { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-dim); text-decoration:none; transition:color .2s; }
+.nav-r a:hover { color:var(--fg); }
+.nav-r .cta { color:var(--blue); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+}
+
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  background: url('photo_spotlight.jpg') center 15% / cover no-repeat;
+  opacity: .22;
+  filter: grayscale(30%);
+}
+
+/* ── ABOUT SECTION ── */
+#about { padding: 9rem 3rem; }
+
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-img-col { position: relative; }
+
+.about-main-img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  filter: grayscale(15%);
+}
+
+.about-img-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.about-img-strip img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: filter .3s;
+}
+
+.about-img-strip img:hover { filter: grayscale(0%); }
+
+.about-text-col { padding-top: 1rem; }
+.about-text-col .s-label { margin-bottom: 2rem; }
+
+.about-headline {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  margin-bottom: 2.5rem;
+}
+
+.about-headline em { font-style: normal; color: var(--blue); }
+
+.about-bio {
+  font-size: .95rem;
+  color: var(--fg-dim);
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.about-bio strong { color: var(--fg); font-weight: 400; }
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 3rem;
+}
+
+.atl-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.5rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--fg-faint);
+}
+
+.atl-item:last-child { border-bottom: 1px solid var(--fg-faint); }
+
+.atl-label {
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  padding-top: .15rem;
+  font-weight: 400;
+}
+
+.atl-text {
+  font-size: .85rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.atl-text strong { color: var(--fg); font-weight: 400; }
+
+.about-socials {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.about-social {
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.about-social:hover { color: var(--blue); }
+
+.hero-index {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  opacity: 0;
+  animation: fadeIn 1s ease 1.4s forwards;
+}
+
+.hero-h1 {
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: clamp(3.8rem, 10vw, 9.5rem);
+  line-height: .92;
+  letter-spacing: -.035em;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+.hero-h1 .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(110%);
+  animation: slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-h1 .line:nth-child(1) { animation-delay: .1s; }
+.hero-h1 .line:nth-child(2) { animation-delay: .22s; color: var(--fg-dim); }
+.hero-h1 .line:nth-child(3) { animation-delay: .34s; }
+
+.hero-h1 .accent { color: var(--blue); }
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0;
+  animation: fadeIn .8s ease .9s forwards;
+}
+
+.hero-sub {
+  font-size: clamp(.9rem, 1.5vw, 1.05rem);
+  color: var(--fg-dim);
+  max-width: 380px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.hero-sub em { color: var(--fg); font-style: normal; }
+
+.hero-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .8rem;
+}
+
+.scroll-dot {
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse 2.5s ease-in-out infinite 1.5s;
+}
+
+.scroll-label {
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+@keyframes slideUp { to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { to{opacity:1} }
+
+/* ── DIVIDER LINE ── */
+.h-line {
+  width: 100%;
+  height: 1px;
+  background: var(--fg-faint);
+}
+
+/* ── SECTION SHARED ── */
+section { padding: 9rem 3rem; }
+
+.s-label {
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1.2rem;
+}
+
+/* ── ABOUT / INTRO ── */
+#intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  padding: 9rem 3rem;
+}
+
+.intro-left { }
+.intro-left .s-label { margin-bottom: 2.5rem; }
+
+.intro-quote {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+.intro-quote em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.intro-right {
+  border-left: 1px solid var(--fg-faint);
+  padding-left: 4rem;
+}
+
+.intro-body {
+  font-size: 1rem;
+  color: var(--fg-dim);
+  line-height: 1.85;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.intro-body strong { color: var(--fg); font-weight: 400; }
+
+.intro-stats {
+  display: flex;
+  gap: 3rem;
+}
+
+.istat-num {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--fg);
+  letter-spacing: -.04em;
+  line-height: 1;
+  display: block;
+}
+
+.istat-label {
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-top: .4rem;
+}
+
+/* ── SERVICES ── */
+#services { padding: 9rem 3rem; }
+
+.services-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 6rem;
+}
+
+.services-h2 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.svc {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--fg-faint);
+  transition: background .3s;
+  cursor: default;
+  position: relative;
+}
+
+.svc:last-child { border-bottom: 1px solid var(--fg-faint); }
+
+.svc::after {
+  content: '';
+  position: absolute;
+  left: -3rem; right: -3rem; top: 0; bottom: 0;
+  background: var(--fg-faint);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+
+.svc:hover::after { opacity: 1; }
+
+.svc-icon {
+  font-size: 1.4rem;
+  padding-top: .2rem;
+}
+
+.svc-name {
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+
+.svc-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.svc-items li {
+  font-size: .82rem;
+  color: var(--fg-dim);
+  font-weight: 300;
+}
+
+.svc-arrow {
+  font-size: 1.2rem;
+  color: var(--blue);
+  opacity: 0;
+  transition: opacity .25s, transform .25s;
+  transform: translateX(-8px);
+  padding-top: .2rem;
+}
+
+.svc:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+
+/* ── PORTFOLIO ── */
+#portfolio { padding: 9rem 3rem; }
+
+.port-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5rem;
+}
+
+.port-h2 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -.03em;
+}
+
+.port-filters {
+  display: flex;
+  gap: .5rem;
+}
+
+.pf {
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .4rem 1rem;
+  border: 1px solid var(--fg-faint);
+  background: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: all .2s;
+}
+.pf.on, .pf:hover { border-color: var(--blue); color: var(--blue); }
+
+.port-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--fg-faint);
+}
+
+.pcard {
+  background: var(--bg);
+  padding: 2.8rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  transition: background .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pcard:hover { background: #111; }
+
+.pcard-top { display:flex; justify-content:space-between; }
+
+.ptag {
+  font-size: .62rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.pyear {
+  font-size: .65rem;
+  color: var(--fg-dim);
+}
+
+.pname {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+
+.pdesc {
+  font-size: .88rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+  font-weight: 300;
+  flex: 1;
+}
+
+/* mini player */
+.mp {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem;
+  border: 1px solid var(--fg-faint);
+}
+
+.mpbtn {
+  width: 28px; height: 28px;
+  background: var(--blue);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: opacity .2s;
+}
+.mpbtn:hover { opacity: .75; }
+.mpbtn svg { fill: #fff; }
+
+.mpwave {
+  flex: 1; height: 20px;
+  display: flex; align-items: center; gap: 2px;
+}
+
+.mpwave .b {
+  flex: 1;
+  background: var(--fg-faint);
+  border-radius: 1px;
+  transition: background .2s;
+}
+
+.mp.playing .mpwave .b {
+  background: var(--blue);
+  animation: ba .7s ease-in-out infinite;
+}
+.mp.playing .mpwave .b:nth-child(2){animation-delay:.1s}
+.mp.playing .mpwave .b:nth-child(3){animation-delay:.2s}
+.mp.playing .mpwave .b:nth-child(4){animation-delay:.05s}
+.mp.playing .mpwave .b:nth-child(5){animation-delay:.15s}
+.mp.playing .mpwave .b:nth-child(6){animation-delay:.22s}
+.mp.playing .mpwave .b:nth-child(7){animation-delay:.08s}
+.mp.playing .mpwave .b:nth-child(8){animation-delay:.18s}
+@keyframes ba { 0%,100%{transform:scaleY(.25)} 50%{transform:scaleY(1)} }
+
+.mptime { font-size:.62rem; color:var(--fg-dim); flex-shrink:0; font-variant-numeric:tabular-nums; }
+
+/* ── CONTACT ── */
+#contact { padding: 9rem 3rem; }
+
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: start;
+}
+
+.contact-left .s-label { margin-bottom: 2rem; }
+
+.contact-h2 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+  margin-bottom: 2.5rem;
+}
+
+.contact-note {
+  font-size: .95rem;
+  color: var(--fg-dim);
+  line-height: 1.75;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: 1.1rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue);
+  padding-bottom: .2rem;
+  transition: color .2s;
+}
+.contact-email:hover { color: var(--blue); }
+
+.contact-meta {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.contact-meta span {
+  font-size: .78rem;
+  color: var(--fg-dim);
+  letter-spacing: .05em;
+}
+
+/* form */
+.cform { display:flex; flex-direction:column; gap:1.5rem; }
+
+.fg { display:flex; flex-direction:column; gap:.5rem; }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+label { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--fg-dim); }
+
+input, select, textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--fg-faint);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: .9rem;
+  font-weight: 300;
+  padding: .8rem 0;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+  resize: none;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--blue); }
+select { appearance:none; cursor:pointer; }
+textarea { min-height: 100px; }
+
+::placeholder { color: var(--fg-dim); }
+
+.fsub {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  background: none;
+  border: 1px solid var(--fg-faint);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: .9rem 2rem;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+  align-self: flex-start;
+  margin-top: .5rem;
+}
+.fsub:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 2.5rem 3rem;
+  border-top: 1px solid var(--fg-faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer img { height:24px; width:auto; filter:brightness(10) saturate(0); opacity:.4; }
+
+.foot-links { display:flex; gap:2rem; list-style:none; }
+.foot-links a { font-size:.65rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim); text-decoration:none; transition:color .2s; }
+.foot-links a:hover { color:var(--fg); }
+
+.foot-copy { font-size:.65rem; color:var(--fg-dim); opacity:.5; letter-spacing:.05em; }
+
+/* ── REEL SECTION ── */
+#reel { padding: 0 3rem 9rem; }
+.reel-wrap { position:relative; background:#000; border:1px solid var(--fg-faint); overflow:hidden; aspect-ratio:16/9; }
+.reel-video { width:100%; height:100%; display:block; object-fit:cover; }
+.reel-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.35); transition:background .3s; }
+.reel-wrap:hover .reel-overlay { background:rgba(0,0,0,.2); }
+.reel-play { width:72px; height:72px; border:1px solid rgba(255,255,255,.4); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:border-color .2s, transform .2s; background:rgba(0,0,0,.3); }
+.reel-play:hover { border-color:var(--blue); transform:scale(1.08); }
+.reel-play svg { fill:white; margin-left:4px; }
+.reel-label { position:absolute; bottom:1.5rem; left:1.8rem; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.reel-label span { color:var(--blue); }
+
+/* ── QUOTES ── */
+#quotes { padding: 9rem 3rem; background: #0d0d0d; }
+.quotes-head { max-width: 1100px; margin: 0 auto 4rem; }
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--fg-faint);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.qcard {
+  background: #0d0d0d;
+  padding: 2.5rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  position: relative;
+  transition: background .25s;
+}
+.qcard:hover { background: #141414; }
+.qmark {
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--blue);
+  opacity: .25;
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 1.2rem;
+  left: 1.8rem;
+}
+.qtext {
+  font-size: .95rem;
+  color: var(--fg-dim);
+  line-height: 1.75;
+  font-weight: 300;
+  padding-top: 1.5rem;
+}
+.qtext em { color: var(--fg); font-style: normal; }
+.qsource {
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--blue);
+  opacity: .7;
+  margin-top: auto;
+}
+
+/* ── SERVICES 4-TILE ── */
+.svc-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--fg-faint); }
+.svc-tile { background:var(--bg); padding:2.5rem 2rem; display:flex; flex-direction:column; gap:1rem; transition:background .25s; position:relative; overflow:hidden; }
+.svc-tile::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--blue); transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
+.svc-tile:hover { background:#0f0f0f; }
+.svc-tile:hover::after { transform:scaleX(1); }
+.svc-tile-icon { font-size:1.6rem; }
+.svc-tile-name { font-size:1.05rem; font-weight:500; letter-spacing:-.01em; }
+.svc-tile-items { list-style:none; display:flex; flex-direction:column; gap:.35rem; margin-top:.3rem; }
+.svc-tile-items li { font-size:.78rem; color:var(--fg-dim); font-weight:300; display:flex; align-items:center; gap:.5rem; }
+.svc-tile-items li::before { content:''; width:3px; height:3px; background:var(--blue); border-radius:50%; flex-shrink:0; }
+
+/* ── FINER WAVEFORM ── */
+.mpwave { flex:1; height:22px; display:flex; align-items:center; gap:1.5px; overflow:hidden; }
+.mpwave .b { flex:1; min-width:0; background:var(--fg-faint); border-radius:1px; transition:background .2s; }
+.mp.playing .mpwave .b { background:var(--blue); animation:ba .7s ease-in-out infinite; }
+
+/* ── VIDEO CARD ── */
+.pcard-video { position:relative; background:#000; overflow:hidden; min-height:140px; display:flex; align-items:center; justify-content:center; border:1px solid var(--fg-faint); }
+.pcard-video video { width:100%; display:block; max-height:160px; object-fit:cover; opacity:.7; transition:opacity .2s; }
+.pcard-video:hover video { opacity:1; }
+.pcard-video-play { position:absolute; width:40px; height:40px; border:1px solid rgba(255,255,255,.4); border-radius:50%; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.pcard-video-play svg { fill:white; margin-left:3px; }
+.pcard-video.playing .pcard-video-play { display:none; }
+.pcard-video-placeholder { display:flex; flex-direction:column; align-items:center; gap:.6rem; color:var(--fg-dim); }
+.pcard-video-placeholder svg { opacity:.3; }
+.pcard-video-placeholder span { font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; }
+.r { opacity:0; transform:translateY(28px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.r.in { opacity:1; transform:none; }
+.r.d1{transition-delay:.08s} .r.d2{transition-delay:.16s} .r.d3{transition-delay:.24s}
+
+/* ── MOBILE ── */
+@media(max-width:860px){
+  nav{padding:1.5rem}
+  .nav-r .nav-links-group{display:none}
+  section,#intro,#contact{padding:5rem 1.5rem}
+  #intro{grid-template-columns:1fr;gap:3rem}
+  .intro-right{border-left:none;padding-left:0;border-top:1px solid var(--fg-faint);padding-top:3rem}
+  .quotes-grid{grid-template-columns:1fr}
+  .about-wrap{grid-template-columns:1fr;gap:3rem}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  #reel{padding:0 1.5rem 5rem}
+  .port-grid{grid-template-columns:1fr}
+  .port-head{flex-direction:column;align-items:flex-start;gap:2rem}
+  .contact-wrap{grid-template-columns:1fr;gap:4rem}
+  .services-head{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  #hero{padding:0 1.5rem 4rem}
+  .hero-index{display:none}
+  footer{flex-direction:column;gap:1.5rem;text-align:center}
+  body{cursor:auto}
+  #cur,#cur-ring{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="#hero" class="logo"><img src="logo.png" alt="Josia Meyer"></a>
+  <div class="nav-r">
+    <div class="nav-links-group" style="display:flex;gap:2.5rem">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Work</a>
+    </div>
+    <a href="#contact" class="cta">Get in Touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding-top:0">
+  <div class="hero-bg-img"></div>
+  <div class="hero-index">Composer · Producer · Darmstadt</div>
+
+  <h1 class="hero-h1">
+    <span class="line">I produce</span>
+    <span class="line">music that makes</span>
+    <span class="line">you <span class="accent">feel</span> somewhere else.</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-sub">
+      Music for <em>games</em>, <em>films</em> and <em>brands</em> —<br>
+      built to transport people to other worlds.
+    </p>
+    <div class="hero-scroll-cue">
+      <div class="scroll-dot"></div>
+      <span class="scroll-label">Scroll</span>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- DEMO REEL -->
+<section id="reel" class="r">
+  <div class="reel-wrap">
+    <!-- Replace src with your actual video file, e.g. src="reel.mp4" -->
+    <video class="reel-video" id="reelVid" loop playsinline poster="">
+      <source src="reel.mp4" type="video/mp4">
+    </video>
+    <div class="reel-overlay" id="reelOverlay" onclick="toggleReel()">
+      <div class="reel-play" id="reelPlayBtn">
+        <svg id="reelIcon" width="20" height="20" viewBox="0 0 20 20"><polygon points="4,2 18,10 4,18"/></svg>
+      </div>
+    </div>
+    <div class="reel-label">Demo Reel · <span>2024</span></div>
+  </div>
+</section>
+<div class="h-line"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-head r">
+    <div>
+      <div class="s-label">Services</div>
+      <h2 class="services-h2">What I do.</h2>
+    </div>
+  </div>
+
+  <div class="svc-grid">
+    <div class="svc-tile r">
+      <div class="svc-tile-icon">🎮</div>
+      <div class="svc-tile-name">Game Audio</div>
+      <ul class="svc-tile-items">
+        <li>Original Game Scores</li>
+        <li>Adaptive & Looping Music</li>
+        <li>Sound Design & Ambiences</li>
+        <li>Unity · Wwise · FMOD</li>
+      </ul>
+    </div>
+    <div class="svc-tile r d1">
+      <div class="svc-tile-icon">🎬</div>
+      <div class="svc-tile-name">Film & Video</div>
+      <ul class="svc-tile-items">
+        <li>Short Film & Doc Scores</li>
+        <li>Trailer & Teaser Music</li>
+        <li>Corporate Videos</li>
+        <li>Sync Licensing</li>
+      </ul>
+    </div>
+    <div class="svc-tile r d2">
+      <div class="svc-tile-icon">📣</div>
+      <div class="svc-tile-name">Brands & Ads</div>
+      <ul class="svc-tile-items">
+        <li>Jingles & Audio Logos</li>
+        <li>Brand Soundscapes</li>
+        <li>Radio & Podcast Intros</li>
+        <li>Ad Campaign Music</li>
+      </ul>
+    </div>
+    <div class="svc-tile r d3">
+      <div class="svc-tile-icon">🎛️</div>
+      <div class="svc-tile-name">Music Production</div>
+      <ul class="svc-tile-items">
+        <li>Songwriting & Arrangements</li>
+        <li>Remote Recording</li>
+        <li>Mixing & Mastering</li>
+        <li>Artist Production</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="port-head r">
+    <div>
+      <div class="s-label">Selected Work</div>
+      <h2 class="port-h2">Projects I'm proud of.</h2>
+    </div>
+    <div class="port-filters">
+      <button class="pf on" onclick="pfilter('all',this)">All</button>
+      <button class="pf" onclick="pfilter('game',this)">Game</button>
+      <button class="pf" onclick="pfilter('film',this)">Film</button>
+      <button class="pf" onclick="pfilter('brand',this)">Brand</button>
+      <button class="pf" onclick="pfilter('prod',this)">Production</button>
+    </div>
+  </div>
+
+  <div class="port-grid" id="pgrid">
+    <div class="pcard r" data-cat="game">
+      <div class="pcard-top"><span class="ptag">Game Score</span><span class="pyear">2024</span></div>
+      <div class="pname">Lucky Strike</div>
+      <p class="pdesc">Full score for the animated game "Lucky Strike" by h-da Darmstadt — a cinematic western atmosphere built from scratch.</p>
+      <div class="mp" id="mp1"><button class="mpbtn" onclick="toggleMp('mp1')"><svg width="9" height="9" viewBox="0 0 9 9"><polygon points="1,0 9,4.5 1,9"/></svg></button><div class="mpwave"><div class="b" style="height:35%"></div><div class="b" style="height:60%"></div><div class="b" style="height:45%"></div><div class="b" style="height:80%"></div><div class="b" style="height:55%"></div><div class="b" style="height:90%"></div><div class="b" style="height:40%"></div><div class="b" style="height:70%"></div><div class="b" style="height:50%"></div><div class="b" style="height:85%"></div><div class="b" style="height:65%"></div><div class="b" style="height:75%"></div><div class="b" style="height:45%"></div><div class="b" style="height:60%"></div><div class="b" style="height:35%"></div><div class="b" style="height:55%"></div><div class="b" style="height:80%"></div><div class="b" style="height:40%"></div><div class="b" style="height:70%"></div><div class="b" style="height:50%"></div></div><span class="mptime">2:47</span></div>
+    </div>
+    <div class="pcard r d1" data-cat="film">
+      <div class="pcard-top"><span class="ptag">Film Score</span><span class="pyear">2024</span></div>
+      <div class="pname">Übergangsmensch</div>
+      <p class="pdesc">Score for the short film "Übergangsmensch" — intimate strings and sparse piano supporting a deeply human story.</p>
+      <div class="mp" id="mp2"><button class="mpbtn" onclick="toggleMp('mp2')"><svg width="9" height="9" viewBox="0 0 9 9"><polygon points="1,0 9,4.5 1,9"/></svg></button><div class="mpwave"><div class="b" style="height:25%"></div><div class="b" style="height:45%"></div><div class="b" style="height:70%"></div><div class="b" style="height:35%"></div><div class="b" style="height:55%"></div><div class="b" style="height:80%"></div><div class="b" style="height:30%"></div><div class="b" style="height:60%"></div><div class="b" style="height:40%"></div><div class="b" style="height:75%"></div><div class="b" style="height:25%"></div><div class="b" style="height:50%"></div><div class="b" style="height:65%"></div><div class="b" style="height:35%"></div><div class="b" style="height:45%"></div><div class="b" style="height:70%"></div><div class="b" style="height:30%"></div><div class="b" style="height:55%"></div><div class="b" style="height:40%"></div><div class="b" style="height:25%"></div></div><span class="mptime">1:54</span></div>
+    </div>
+    <div class="pcard r d2" data-cat="game">
+      <div class="pcard-top"><span class="ptag">Game Score</span><span class="pyear">2023</span></div>
+      <div class="pname">eHub Cities: Blackout</div>
+      <p class="pdesc">Atmospheric score for the game "eHub Cities: Blackout" — tense electronic textures for a snow-covered dystopian city.</p>
+      <div class="mp" id="mp3"><button class="mpbtn" onclick="toggleMp('mp3')"><svg width="9" height="9" viewBox="0 0 9 9"><polygon points="1,0 9,4.5 1,9"/></svg></button><div class="mpwave"><div class="b" style="height:70%"></div><div class="b" style="height:90%"></div><div class="b" style="height:55%"></div><div class="b" style="height:80%"></div><div class="b" style="height:65%"></div><div class="b" style="height:95%"></div><div class="b" style="height:50%"></div><div class="b" style="height:75%"></div><div class="b" style="height:85%"></div><div class="b" style="height:60%"></div><div class="b" style="height:70%"></div><div class="b" style="height:45%"></div><div class="b" style="height:80%"></div><div class="b" style="height:90%"></div><div class="b" style="height:55%"></div><div class="b" style="height:75%"></div><div class="b" style="height:65%"></div><div class="b" style="height:85%"></div><div class="b" style="height:50%"></div><div class="b" style="height:70%"></div></div><span class="mptime">0:30</span></div>
+    </div>
+    <div class="pcard r" data-cat="film" data-type="video">
+      <div class="pcard-top"><span class="ptag">Film Score · Video</span><span class="pyear">2023</span></div>
+      <div class="pname">Geist einer Uhr</div>
+      <p class="pdesc">Score for the historical short film "Geist einer Uhr 1888" — orchestral and eerie, a ghost story set in 19th century Germany.</p>
+      <div class="pcard-video" id="vid1" onclick="toggleVideo('vid1')">
+        <video id="vid1-el" loop playsinline style="width:100%;display:block;max-height:160px;object-fit:cover;opacity:.7">
+          <source src="portfolio/geist-einer-uhr.mp4" type="video/mp4">
+        </video>
+        <div class="pcard-video-play" id="vid1-play">
+          <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="2,1 13,7 2,13"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="pcard r d1" data-cat="film">
+      <div class="pcard-top"><span class="ptag">Film Score</span><span class="pyear">2023</span></div>
+      <div class="pname">Oberste Etage</div>
+      <p class="pdesc">Score for the short film "Oberste Etage" — modern, understated music that lets the visuals breathe.</p>
+      <div class="mp" id="mp4"><button class="mpbtn" onclick="toggleMp('mp4')"><svg width="9" height="9" viewBox="0 0 9 9"><polygon points="1,0 9,4.5 1,9"/></svg></button><div class="mpwave"><div class="b" style="height:50%"></div><div class="b" style="height:75%"></div><div class="b" style="height:90%"></div><div class="b" style="height:60%"></div><div class="b" style="height:85%"></div><div class="b" style="height:45%"></div><div class="b" style="height:70%"></div><div class="b" style="height:95%"></div><div class="b" style="height:55%"></div><div class="b" style="height:80%"></div><div class="b" style="height:65%"></div><div class="b" style="height:40%"></div><div class="b" style="height:75%"></div><div class="b" style="height:85%"></div><div class="b" style="height:50%"></div><div class="b" style="height:70%"></div><div class="b" style="height:90%"></div><div class="b" style="height:60%"></div><div class="b" style="height:45%"></div><div class="b" style="height:80%"></div></div><span class="mptime">3:12</span></div>
+    </div>
+    <div class="pcard r d2" data-cat="brand">
+      <div class="pcard-top"><span class="ptag">Jingle · Sound Design</span><span class="pyear">2024</span></div>
+      <div class="pname">Jingles & Sound Design</div>
+      <p class="pdesc">A collection of jingles, audio logos and sound design work — from radio spots to UI sounds and Dolby Atmos productions.</p>
+      <div class="mp" id="mp5"><button class="mpbtn" onclick="toggleMp('mp5')"><svg width="9" height="9" viewBox="0 0 9 9"><polygon points="1,0 9,4.5 1,9"/></svg></button><div class="mpwave"><div class="b" style="height:40%"></div><div class="b" style="height:55%"></div><div class="b" style="height:75%"></div><div class="b" style="height:50%"></div><div class="b" style="height:65%"></div><div class="b" style="height:85%"></div><div class="b" style="height:45%"></div><div class="b" style="height:70%"></div><div class="b" style="height:60%"></div><div class="b" style="height:80%"></div><div class="b" style="height:40%"></div><div class="b" style="height:55%"></div><div class="b" style="height:75%"></div><div class="b" style="height:50%"></div><div class="b" style="height:65%"></div><div class="b" style="height:85%"></div><div class="b" style="height:45%"></div><div class="b" style="height:70%"></div><div class="b" style="height:60%"></div><div class="b" style="height:35%"></div></div><span class="mptime">3:38</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-img-col r">
+      <img class="about-main-img" src="photo_red_portrait.jpg" alt="Josia Meyer live on stage">
+      <div class="about-img-strip">
+        <img src="photo_laughing.jpg" alt="Josia Meyer performing">
+        <img src="photo_stage_wide.jpg" alt="Josia Meyer on stage">
+      </div>
+    </div>
+    <div class="about-text-col">
+      <div class="s-label r">About</div>
+      <h2 class="about-headline r">Music that<br><em>carries stories.</em></h2>
+      <p class="about-bio r">
+        I'm Josia Meyer — composer, music producer and sound designer based in Darmstadt. I started playing piano, drums, guitar and organ early on, and developed an understanding of music, emotion and structure that still drives everything I do today.<br><br>
+        <strong>I studied Sound & Music Production at h-da Darmstadt</strong>, with a focus on music production, sound design and game audio. I then completed a 6-month internship at BOOM Library, contributing to professional sound libraries with field recording and sound design. Alongside studio work, I play keys in an indie-pop band from Darmstadt.
+      </p>
+      <div class="about-timeline r">
+        <div class="atl-item">
+          <span class="atl-label">Education</span>
+          <span class="atl-text"><strong>Sound & Music Production</strong> · h-da Darmstadt · Game Audio, Sound Design, Music Production</span>
+        </div>
+        <div class="atl-item">
+          <span class="atl-label">Internship</span>
+          <span class="atl-text"><strong>BOOM Library</strong> · Sound Design, Field Recording, Commercial Sound Libraries</span>
+        </div>
+        <div class="atl-item">
+          <span class="atl-label">Live</span>
+          <span class="atl-text">Keyboardist in an <strong>indie-pop band</strong> from Darmstadt</span>
+        </div>
+        <div class="atl-item">
+          <span class="atl-label">Training</span>
+          <span class="atl-text">Church music C-course · Music theory, ear training, choir conducting, organ</span>
+        </div>
+      </div>
+      <div class="about-socials r">
+        <a href="https://www.instagram.com/joschi.myr/" class="about-social" target="_blank">↗ Instagram</a>
+        <a href="https://www.linkedin.com/in/josia-meyer/" class="about-social" target="_blank">↗ LinkedIn</a>
+        <a href="https://open.spotify.com/artist/4mBoPsMb9maT8hSh8KVmnk" class="about-social" target="_blank">↗ Spotify</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- QUOTES -->
+<section id="quotes">
+  <div class="quotes-head r">
+    <div class="s-label">What people say</div>
+    <h2 style="font-size:clamp(2.2rem,5vw,4.5rem);font-weight:300;letter-spacing:-.03em;">In their own words.</h2>
+  </div>
+  <div class="quotes-grid">
+    <div class="qcard r">
+      <div class="qmark">"</div>
+      <p class="qtext">He's the best and the fastest, and on a whole different level when it comes to <em>taking feedback and the given task seriously.</em></p>
+      <div class="qsource">5★ · Fiverr Review</div>
+    </div>
+    <div class="qcard r d1">
+      <div class="qmark">"</div>
+      <p class="qtext">Our illustrator hears the main track on repeat for inspiration while drawing — and a composer friend of his who has scored games <em>also loved it.</em></p>
+      <div class="qsource">Game Developer · Discord</div>
+    </div>
+    <div class="qcard r d2">
+      <div class="qmark">"</div>
+      <p class="qtext">Your jingle is an absolute earworm. <em>Every time it comes on I have to dance.</em></p>
+      <div class="qsource">Client · WhatsApp</div>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left r">
+      <div class="s-label">Contact</div>
+      <h2 class="contact-h2">Let's make<br>something<br>unforgettable.</h2>
+      <p class="contact-note">Tell me about your project. I'll get back within 48 hours with thoughts and ideas on how we could work together.</p>
+      <a href="mailto:Kontakt@Josiameyer.de" class="contact-email">Kontakt@Josiameyer.de</a>
+      <div class="contact-meta">
+        <span>📍 Darmstadt, Germany · Available worldwide</span>
+        <span>⏱ Replies within 48 hours</span>
+      </div>
+    </div>
+    <div class="cform r d1">
+      <div class="frow">
+        <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="fg">
+        <label>Project Type</label>
+        <select>
+          <option value="" disabled selected>Select a category</option>
+          <option>Game Score</option>
+          <option>Film / Video Score</option>
+          <option>Jingle / Audio Branding</option>
+          <option>Music Production</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Your Project</label><textarea placeholder="What are you working on? Mood, timeline, budget?"></textarea></div>
+      <button class="fsub">Send Message &nbsp;→</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="logo.png" alt="Josia Meyer">
+  <ul class="foot-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="foot-copy">© 2026 Josia Meyer · josiameyer.de</div>
+</footer>
+
+<script>
+// cursor — dot + lagging ring
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function animRing(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.svc-tile,.pcard').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.classList.add('big'); ring.classList.add('big'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); ring.classList.remove('big'); });
+});
+
+// waveform bar animation delays
+document.querySelectorAll('.mpwave .b').forEach((b,i) => {
+  b.style.animationDelay = (i * 0.04) + 's';
+});
+
+// reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*50); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+// demo reel toggle
+let reelPlaying = false;
+function toggleReel() {
+  const vid = document.getElementById('reelVid');
+  const icon = document.getElementById('reelIcon');
+  const btn = document.getElementById('reelPlayBtn');
+  reelPlaying = !reelPlaying;
+  if(reelPlaying) {
+    vid.play();
+    icon.innerHTML = '<rect x="3" y="2" width="4" height="16" fill="white"/><rect x="13" y="2" width="4" height="16" fill="white"/>';
+    btn.style.opacity = '0';
+    setTimeout(()=>{ btn.style.display='none'; }, 300);
+  } else {
+    vid.pause();
+    btn.style.display='flex'; btn.style.opacity='0';
+    setTimeout(()=>{ btn.style.opacity='1'; }, 10);
+    icon.innerHTML = '<polygon points="4,2 18,10 4,18"/>';
+  }
+}
+
+// portfolio filter
+function pfilter(cat, btn) {
+  document.querySelectorAll('.pf').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pcard').forEach(c => {
+    c.style.display = (cat==='all' || c.dataset.cat===cat) ? 'flex' : 'none';
+  });
+}
+
+// mini audio players
+let curMp = null;
+function toggleMp(id) {
+  const el = document.getElementById(id);
+  if(curMp && curMp !== el) curMp.classList.remove('playing');
+  el.classList.toggle('playing');
+  curMp = el.classList.contains('playing') ? el : null;
+}
+
+// video cards in portfolio
+let curVid = null;
+function toggleVideo(id) {
+  const wrap = document.getElementById(id);
+  const vid = document.getElementById(id+'-el');
+  const playBtn = document.getElementById(id+'-play');
+  const isPlaying = wrap.classList.contains('playing');
+  if(curVid && curVid !== wrap) {
+    const prevId = curVid.id;
+    document.getElementById(prevId+'-el').pause();
+    document.getElementById(prevId+'-play').style.display='flex';
+    curVid.classList.remove('playing');
+  }
+  if(isPlaying) {
+    vid.pause(); playBtn.style.display='flex'; wrap.classList.remove('playing'); curVid=null;
+  } else {
+    vid.play(); playBtn.style.display='none'; wrap.classList.add('playing'); curVid=wrap;
+  }
+}
+</script>
+</body>
+</html>
